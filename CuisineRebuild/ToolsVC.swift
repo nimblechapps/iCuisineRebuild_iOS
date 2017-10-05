@@ -32,9 +32,7 @@ class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,ToolBa
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - Table view data source
-    
+        
     @IBAction func wiKeyTapped(){
         
         if let textFld = self.toolBar.textField{
@@ -125,9 +123,11 @@ class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,ToolBa
                 
                 if timeAndStatus.isComplete == true{
                    cell.labelTimer.text = "00:00"
+                   cell.buttonSetTimer.disconnectedGlow()
                    spatula.toolTimerEndDate = nil
                 }
                 else{
+                    cell.buttonSetTimer.connectedGlow()
                     cell.labelTimer.text = timeAndStatus.formattedTime
                 }
             }

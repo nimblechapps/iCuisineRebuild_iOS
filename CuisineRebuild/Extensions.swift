@@ -11,8 +11,7 @@ import  UIKit
 
 // Mark : UIView Extensions
 
-let _kBackgroundGrey : UIColor = UIColor(colorLiteralRed: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 0.5)
-let _kThemeRed : UIColor = UIColor(colorLiteralRed: 251.0/255.0, green: 0.0/255.0, blue: 20.0/255.0, alpha: 1)
+
 
 extension UIView {
     func roundedCorners(){
@@ -156,7 +155,6 @@ extension Data {
 
 
 
-
 // Mark : Array Extensions
 extension Array where Element: Equatable {
     
@@ -165,4 +163,6 @@ extension Array where Element: Equatable {
             remove(at: index)
         }
     }
+    
+    
 }

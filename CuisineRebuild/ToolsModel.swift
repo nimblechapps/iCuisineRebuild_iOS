@@ -12,16 +12,7 @@ import UIKit
 let _kLoadCellLoadTime = 20
 
 
-let SmallCuttingBoard = "SmallCuttingBoard".localized
-let SmallCuttingBoard_Id = "0203"
 
-
-let MeasuringSpoon    = "MeasuringSpoon".localized
-let MeasuringSpoon_Id    = "0206"
-
-
-let Spatula           = "Spatula".localized
-let SpatulaTool_Id       = "0103"
 
 
 
@@ -42,7 +33,7 @@ class ToolHelpers {
             case is MeasuringSpoonTool:
                 MeasuringSpoonTool.connectMeasuringSpoonTool(peripheralUUID: peripheralUUID)
                 
-            
+                
                 
             default:
                 break
@@ -65,7 +56,7 @@ class ToolHelpers {
             case is MeasuringSpoonTool:
                 MeasuringSpoonTool.disConnectMeasuringSpoonTool(peripheralUUID: peripheralUUID)
                 
-            
+                
                 
             default:
                 break
@@ -98,7 +89,7 @@ class ToolHelpers {
     
     class func getToolInstanceFromPeripheralId(peripheralUUID : String) -> AnyObject? {
         
-         if peripheralUUID == MeasuringSpoonTool.sharedInstance.toolPeripheralUUID{
+        if peripheralUUID == MeasuringSpoonTool.sharedInstance.toolPeripheralUUID{
             return MeasuringSpoonTool.sharedInstance
         }
         else if peripheralUUID == SmallCuttingBoardTool.sharedInstance.toolPeripheralUUID{
@@ -132,7 +123,6 @@ class SpatulaTool {
     var toolPeripheralUUID              : String = ""
     var toolName                        : String = Spatula
     var toolBatteryLevel                : String = ""
-    var toolImage                       : UIImage = UIImage(named: "Spatula")!
     var toolIsConnected                 : Bool = false
     var toolCurrentTemperature          : Double = 0
     var toolTargetTemperature           : Double = 0
@@ -147,6 +137,8 @@ class SpatulaTool {
         if  SpatulaTool.sharedInstance.toolIsConnected == false{
             SpatulaTool.sharedInstance.toolPeripheralUUID = peripheralUUID
             SpatulaTool.sharedInstance.toolIsConnected = true
+            SpatulaTool.sharedInstance.toolTimerEndDate = nil
+            SpatulaTool.sharedInstance.toolIsExpanded = false
         }
     }
     
@@ -179,7 +171,6 @@ class SmallCuttingBoardTool {
     var toolPeripheralUUID      : String  = ""
     var toolName                : String  = SmallCuttingBoard
     var toolBatteryLevel        : String  = ""
-    var toolImage               : UIImage = UIImage(named: "SmallCuttingBoard")!
     var toolIsConnected         : Bool    = false
     var toolCurrentWeight       : Double  = 0
     var toolTargetWeight        : Double  = 0
@@ -277,7 +268,6 @@ class MeasuringSpoonTool {
     var toolPeripheralUUID      : String  = ""
     var toolName                : String  = MeasuringSpoon
     var toolBatteryLevel        : String  = ""
-    var toolImage               : UIImage = UIImage(named: "MeasuringSpoon")!
     var toolIsConnected         : Bool    = false
     var toolCurrentWeight       : Double  = 0
     var toolTargetWeight        : Double  = 0
@@ -289,9 +279,7 @@ class MeasuringSpoonTool {
     var toolLoadingCounter      : Int     = _kLoadCellLoadTime
     var toolIsLoading           : Bool    = true
     
-    
-    
-    
+        
     
     
     class func connectMeasuringSpoonTool(peripheralUUID : String){

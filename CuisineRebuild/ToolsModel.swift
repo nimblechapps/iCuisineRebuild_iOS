@@ -12,10 +12,6 @@ import UIKit
 let _kLoadCellLoadTime = 20
 
 
-
-
-
-
 class ToolHelpers {
     
     
@@ -111,6 +107,22 @@ class ToolHelpers {
         return rawData.hexEncodedString().substring(from: 12, length: 4).trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    class func rearrangeConnectedTool(connectedTool : String) {
+        let index = ToolsArray.index(of: connectedTool)
+        if index != 0 {
+            swap(&ToolsArray[0], &ToolsArray[index!])
+        }
+    }
+    
+    class func rearrangeDisconnectedTool(disConnectedTool : String) {
+        let index = ToolsArray.index(of: disConnectedTool)
+        if index != ToolsArray.count-1{
+            swap(&ToolsArray[index!], &ToolsArray[ToolsArray.count-1])
+        }
+    }
+    
+    
+    
     
     
     
@@ -135,6 +147,9 @@ class SpatulaTool {
     class func connectSpatulaTool(peripheralUUID : String){
         
         if  SpatulaTool.sharedInstance.toolIsConnected == false{
+            
+            ToolHelpers.rearrangeConnectedTool(connectedTool: _kSpatula)
+            
             SpatulaTool.sharedInstance.toolPeripheralUUID = peripheralUUID
             SpatulaTool.sharedInstance.toolIsConnected = true
             SpatulaTool.sharedInstance.toolTimerEndDate = nil
@@ -143,6 +158,9 @@ class SpatulaTool {
     }
     
     class func disConnectSpatulaTool(peripheralUUID : String){
+        
+        ToolHelpers.rearrangeDisconnectedTool(disConnectedTool: _kSpatula)
+        
         
         SpatulaTool.sharedInstance.toolPeripheralUUID = ""
         SpatulaTool.sharedInstance.toolIsConnected = false
@@ -186,6 +204,8 @@ class SmallCuttingBoardTool {
         
         if  SmallCuttingBoardTool.sharedInstance.toolIsConnected == false{
             
+            ToolHelpers.rearrangeConnectedTool(connectedTool: _kSmallCuttingBoard)
+            
             SmallCuttingBoardTool.sharedInstance.toolPeripheralUUID = peripheralUUID
             SmallCuttingBoardTool.sharedInstance.toolIsConnected = true
             SmallCuttingBoardTool.sharedInstance.toolLoadingCounter = _kLoadCellLoadTime
@@ -196,6 +216,8 @@ class SmallCuttingBoardTool {
     }
     
     class func disConnectSmallCuttingBoardTool(peripheralUUID : String){
+        
+        ToolHelpers.rearrangeDisconnectedTool(disConnectedTool: _kSmallCuttingBoard)
         
         SmallCuttingBoardTool.sharedInstance.toolPeripheralUUID = ""
         SmallCuttingBoardTool.sharedInstance.toolIsConnected = false
@@ -279,7 +301,7 @@ class MeasuringSpoonTool {
     var toolLoadingCounter      : Int     = _kLoadCellLoadTime
     var toolIsLoading           : Bool    = true
     
-        
+    
     
     
     class func connectMeasuringSpoonTool(peripheralUUID : String){

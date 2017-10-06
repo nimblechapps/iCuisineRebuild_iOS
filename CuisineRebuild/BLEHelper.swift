@@ -160,8 +160,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             return
         }
         
-        
-        
         switch characteristic.uuid {
             
         case ProductInformationCharacteristicUUID:
@@ -195,10 +193,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 if let weight = self.getWeightFromHexString(rawData: value){
                     
                     let weightTool = ToolHelpers.getToolInstanceFromPeripheralId(peripheralUUID: peripheral.identifier.uuidString)
-
+                    
                     switch weightTool {
                     case is SmallCuttingBoardTool:
-                         SmallCuttingBoardTool.updateWeightForSmallCuttingBoardTool(weight: weight.weight, weightString: weight.weightString)
+                        SmallCuttingBoardTool.updateWeightForSmallCuttingBoardTool(weight: weight.weight, weightString: weight.weightString)
                         
                     case is MeasuringSpoonTool:
                         MeasuringSpoonTool.updateWeightForMeasuringSpoonTool(weight: weight.weight, weightString: weight.weightString)
@@ -247,11 +245,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 return((Double(actualTemperature) * -1),"-\(actualTemperature)")
             }
             else{
-              return(Double(actualTemperature),"\(actualTemperature)")
+                return(Double(actualTemperature),"\(actualTemperature)")
             }
         }
         return nil
-        
     }
     
     func getWeightFromHexString(rawData : Data) -> (weight : Double, weightString : String)?{

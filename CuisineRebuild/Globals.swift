@@ -26,4 +26,9 @@ let SpatulaTool_Id       = "0103"
 
 
 
-var ToolsArray : [String] = ["SmallCuttingBoard", "Spatula"]
+let _kSmallCuttingBoard = "SmallCuttingBoard"
+let _kSpatula = "Spatula"
+
+
+
+var ToolsArray : [String] = [_kSmallCuttingBoard, _kSpatula]

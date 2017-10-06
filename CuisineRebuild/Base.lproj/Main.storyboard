@@ -455,7 +455,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cyh-dn-JHa">
                                                             <rect key="frame" x="105" y="140" width="241" height="42"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfW-kf-E6g">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfW-kf-E6g" customClass="TextInputButton" customModule="CuisineRebuild" customModuleProvider="target">
                                                                     <rect key="frame" x="149" y="0.0" width="42" height="42"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
@@ -466,6 +466,9 @@
                                                                     <state key="normal" image="TargetButtonIcon">
                                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="targetTapped" destination="Zrv-8Q-DvU" eventType="touchUpInside" id="erS-rH-JYe"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMe-dS-8VW">
                                                                     <rect key="frame" x="99" y="0.0" width="42" height="42"/>

@@ -9,7 +9,46 @@
 import Foundation
 import  UIKit
 
+class TextInputButton : UIButton, UIKeyInput, UITextInputTraits {
+    
+     var accessoryView : UIView?
+    
+    
+    override var inputAccessoryView: UIView?{
+        get {
+            return accessoryView
+        }
+        set(newValue){
+            accessoryView = newValue
+        }
+    }
+    
+    func insertText(_ text: String) {
+        
+    }
+    
+    func deleteBackward() {
+        
+    }
+    
+    var hasText: Bool{
+        return false
+    }
+    
+    override var canBecomeFirstResponder: Bool{
+        return true
+    }
+    
+    override var canResignFirstResponder: Bool{
+        return true
+    }
+    
+}
+
 class SmallCuttingBoardCell : UITableViewCell{
+    
+
+
     
     @IBOutlet weak var containerView : UIView!{
         didSet {
@@ -75,12 +114,12 @@ class SmallCuttingBoardCell : UITableViewCell{
         }
     }
     
+    
     @IBAction func targetTapped(){
         
 //        if SmallCuttingBoardTool.sharedInstance.toolTimerEndDate == nil{
 //            SmallCuttingBoardTool.sharedInstance.toolTimerEndDate = DateHelpers.getDateByAddingMinutes(minutes: 1.0)
 //        }
-        
     }
     
     @IBOutlet weak var fullScreenView : UIView!
@@ -97,7 +136,32 @@ class SmallCuttingBoardCell : UITableViewCell{
 
 
 
-class SpatulaCell : UITableViewCell{
+class SpatulaCell : UITableViewCell,UITextFieldDelegate{
+    
+    var toolBar : TextToolBar?
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        toolBar =    TextToolBar.instanceFromNib { (_tapped, _text, _toolBar) in
+            if _tapped == .Done{
+                print("Done")
+                print(_text ?? "nil val")
+            }
+            
+            if _tapped == .Cancel{
+                print("Cancel")
+                print(_text ?? "nil val")
+                
+            }
+            self.window?.endEditing(true)
+            self.window?.endEditing(true)
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        
+    }
     
     @IBOutlet weak var containerView : UIView!{
         didSet {
@@ -134,7 +198,7 @@ class SpatulaCell : UITableViewCell{
             buttonExpandContract.roundedCornersWithBorder()
         }
     }
-    @IBOutlet weak var buttonSetTarget      : UIButton!{
+    @IBOutlet weak var buttonSetTarget      : TextInputButton!{
         didSet{
             buttonSetTarget.roundedCornersWithBorder()
         }
@@ -144,6 +208,14 @@ class SpatulaCell : UITableViewCell{
             buttonSetTimer.roundedCornersWithBorder()
         }
     }
+    
+    func keyboardWillShow(){
+        
+      toolBar?.textField?.autocorrectionType  = .no
+      toolBar?.textField?.keyboardType = .numberPad
+      toolBar?.textField?.becomeFirstResponder()
+    }
+
     
     
     @IBOutlet weak var labelTimer : UILabel!
@@ -162,6 +234,13 @@ class SpatulaCell : UITableViewCell{
                 if SpatulaTool.sharedInstance.toolTimerEndDate == nil{
                     SpatulaTool.sharedInstance.toolTimerEndDate = DateHelpers.getDateByAddingMinutes(minutes: 1.0)
             }
+    }
+    
+    @IBAction func targetTapped(){
+        self.buttonSetTarget.accessoryView = self.toolBar
+        self.toolBar?.textField?.text = ""
+        self.buttonSetTarget.becomeFirstResponder()
+        
     }
     
     @IBOutlet weak var fullScreenView : UIView!

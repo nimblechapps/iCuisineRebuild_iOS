@@ -8,20 +8,15 @@
 
 import UIKit
 
-class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,ToolBarDelegate,UITextFieldDelegate {
+class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     
     
     @IBOutlet weak var tableViewTools : UITableView!
-    var toolBar : TextToolBarView!
     
     @IBOutlet weak var btnWiKey : UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.toolBar = TextToolBarView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
-        self.toolBar.toolBarDelegate = self
-        self.toolBar.textField?.delegate = self
         
         BLEHelper.sharedInstance.update { (char) in
             self.tableViewTools.reloadData()
@@ -30,38 +25,22 @@ class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,ToolBa
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
         
     @IBAction func wiKeyTapped(){
-        
-        if let textFld = self.toolBar.textField{
-            textFld.becomeFirstResponder()
-            textFld.inputAccessoryView = self.toolBar
-            
-        }
+      
     }
-    
-    func doneTapped(textInput : String){
-        if let textFld = self.toolBar.textField{
-            textFld.resignFirstResponder()
-        }
-    }
-    func cancelTapped(){
-        if let textFld = self.toolBar.textField{
-            textFld.resignFirstResponder()
-        }
-    }
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return ToolsArray.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
+        switch ToolsArray[indexPath.row] {
+        case _kSmallCuttingBoard:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SmallCuttingBoardCell", for: indexPath) as! SmallCuttingBoardCell
             
             let smallCuttingBoard = SmallCuttingBoardTool.sharedInstance
@@ -90,7 +69,7 @@ class ToolsVC: UIViewController,UITableViewDelegate,UITableViewDataSource,ToolBa
             
             return cell
             
-        case 1:
+        case _kSpatula:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SpatulaCell", for: indexPath) as! SpatulaCell
             
             let spatula = SpatulaTool.sharedInstance

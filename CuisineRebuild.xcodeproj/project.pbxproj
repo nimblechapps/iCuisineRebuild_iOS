@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8F201D791F00C8B00010F2B0 /* ServiceIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F201D781F00C8B00010F2B0 /* ServiceIds.swift */; };
 		8F201D7B1F00EA6C0010F2B0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F201D7A1F00EA6C0010F2B0 /* Extensions.swift */; };
+		8F22DC071F87935700C9948D /* CommonPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F22DC061F87935700C9948D /* CommonPickerView.xib */; };
+		8F22DC091F87936900C9948D /* CommonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F22DC081F87936900C9948D /* CommonPickerView.swift */; };
 		8F2B1C0D1EFE15AB00A331CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B1C0C1EFE15AB00A331CA /* AppDelegate.swift */; };
 		8F2B1C0F1EFE15AB00A331CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B1C0E1EFE15AB00A331CA /* ViewController.swift */; };
 		8F2B1C121EFE15AB00A331CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F2B1C101EFE15AB00A331CA /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		8F201D781F00C8B00010F2B0 /* ServiceIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceIds.swift; sourceTree = "<group>"; };
 		8F201D7A1F00EA6C0010F2B0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8F22DC061F87935700C9948D /* CommonPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonPickerView.xib; sourceTree = "<group>"; };
+		8F22DC081F87936900C9948D /* CommonPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPickerView.swift; sourceTree = "<group>"; };
 		8F2B1C091EFE15AB00A331CA /* CuisineRebuild.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuisineRebuild.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2B1C0C1EFE15AB00A331CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F2B1C0E1EFE15AB00A331CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F22DC051F87931400C9948D /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				8F22DC061F87935700C9948D /* CommonPickerView.xib */,
+				8F22DC081F87936900C9948D /* CommonPickerView.swift */,
+			);
+			name = PickerView;
+			sourceTree = "<group>";
+		};
 		8F2B1C001EFE15AA00A331CA = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				8F2B1C131EFE15AB00A331CA /* Assets.xcassets */,
+				8F22DC051F87931400C9948D /* PickerView */,
 				8F36D38C1F85FA5F00BFDE4D /* TextToolBar */,
 				8F2B1C101EFE15AB00A331CA /* Main.storyboard */,
 				8F2B1C151EFE15AB00A331CA /* LaunchScreen.storyboard */,
@@ -189,6 +203,7 @@
 				8F36D38E1F85FAA300BFDE4D /* TextToolBar.xib in Resources */,
 				8F2B1C171EFE15AB00A331CA /* LaunchScreen.storyboard in Resources */,
 				8F2B1C141EFE15AB00A331CA /* Assets.xcassets in Resources */,
+				8F22DC071F87935700C9948D /* CommonPickerView.xib in Resources */,
 				8F2B1C121EFE15AB00A331CA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,6 +222,7 @@
 				8F2B1C1F1EFE167C00A331CA /* BLEHelper.swift in Sources */,
 				8F36D3951F86557A00BFDE4D /* Globals.swift in Sources */,
 				8F5AC40F1F84B45E0033E814 /* ToolCells.swift in Sources */,
+				8F22DC091F87936900C9948D /* CommonPickerView.swift in Sources */,
 				8F3059F11F04CA7300318B0C /* ToolsModel.swift in Sources */,
 				8F2B1C0F1EFE15AB00A331CA /* ViewController.swift in Sources */,
 				8F5AC40D1F84B3200033E814 /* ToolsVC.swift in Sources */,

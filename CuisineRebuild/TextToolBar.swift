@@ -8,71 +8,43 @@
 
 import UIKit
 
-protocol ToolBarDelegate {
-    
-    func doneTapped(textInput : String)
-    func cancelTapped()
-}
 
-class TextToolBarView : UIView, UITextFieldDelegate {
+
+class TextToolBar : UIView, UITextFieldDelegate {
     
-    var toolBarDelegate : ToolBarDelegate?
+    @IBOutlet  var btnDone   : UIButton?
+    @IBOutlet  var btnCancel : UIButton?
+    @IBOutlet  var textField : UITextField?
     
-    var btnDone   : UIBarButtonItem?
-    var btnCancel : UIBarButtonItem?
-    var textField : UITextField?
-    
-    
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.initializeToolBar()
+    enum Tapped {
+        case Done, Cancel
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initializeToolBar()
-    }
+    var callBackBlock: ((Tapped, String?, TextToolBar) -> ())?
     
     
-    func initializeToolBar() {
-        let tb : ToolBar =  ToolBar.instanceFromNib() as! ToolBar
-        tb.frame = self.frame
-        self.btnDone = tb.btnDone
-        self.btnCancel = tb.btnCancel
-        self.textField = tb.textField
-        self.textField?.inputAccessoryView = self
-        self.addSubview(tb)
+    class func instanceFromNib(block : @escaping (Tapped, String?, TextToolBar)-> ()) -> TextToolBar{
+        
+        let instance = TextToolBar.instanceFromNib()
+        instance.frame = CGRect(x: 0, y: 0, width: 568, height: 44)
+        instance.callBackBlock  = block
+        return instance
     }
+    
+    class func instanceFromNib() -> TextToolBar {
+        return UINib(nibName: "TextToolBar", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! TextToolBar
+    }
+
     
     @IBAction func doneTapped(){
-        if let delegate = toolBarDelegate{
-            if let txtFld = self.textField{
-            delegate.doneTapped(textInput: txtFld.text!)
-            }
-            else{
-             delegate.doneTapped(textInput: "")
-            }
-        }
+     callBackBlock?(Tapped.Done, self.textField?.text!, self)
     }
     
     @IBAction func cancelTapped(){
-        if let delegate = toolBarDelegate{
-            delegate.cancelTapped()
-        }
-    }
+        callBackBlock?(Tapped.Cancel, self.textField?.text!, self)
+      }
     
     
 }
 
-class ToolBar: UIToolbar {
-    
-    @IBOutlet var btnDone     : UIBarButtonItem!
-    @IBOutlet var btnCancel   : UIBarButtonItem!
-    @IBOutlet var textField   : UITextField!
-    
-    class func instanceFromNib() -> UIToolbar {
-        return UINib(nibName: "TextToolBar", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! ToolBar
-    }
-}
 

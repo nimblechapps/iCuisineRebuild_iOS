@@ -9,7 +9,6 @@
 import UIKit
 
 
-
 class TextToolBar : UIView, UITextFieldDelegate {
     
     @IBOutlet  var btnDone   : UIButton?
@@ -22,11 +21,9 @@ class TextToolBar : UIView, UITextFieldDelegate {
     
     var callBackBlock: ((Tapped, String?, TextToolBar) -> ())?
     
-    
     class func instanceFromNib(block : @escaping (Tapped, String?, TextToolBar)-> ()) -> TextToolBar{
-        
         let instance = TextToolBar.instanceFromNib()
-        instance.frame = CGRect(x: 0, y: 0, width: 568, height: 44)
+        instance.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 44)
         instance.callBackBlock  = block
         return instance
     }
@@ -40,9 +37,10 @@ class TextToolBar : UIView, UITextFieldDelegate {
      callBackBlock?(Tapped.Done, self.textField?.text!, self)
     }
     
+    
     @IBAction func cancelTapped(){
         callBackBlock?(Tapped.Cancel, self.textField?.text!, self)
-      }
+    }
     
     
 }

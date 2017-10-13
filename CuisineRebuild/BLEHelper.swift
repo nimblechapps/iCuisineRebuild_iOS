@@ -82,14 +82,10 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         else{
             return
         }
-        
-        
-        
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print(error?.localizedDescription ?? "unkown error")
-        
         self.scanPeripherals()
     }
     
@@ -119,7 +115,6 @@ class BLEHelper : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         if let _characterstics = service.characteristics{
             for characterstic in _characterstics{
-                
                 
                 switch characterstic.uuid {
                 case ProductInformationCharacteristicUUID:

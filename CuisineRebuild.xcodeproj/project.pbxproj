@@ -17,6 +17,11 @@
 		8F2B1C141EFE15AB00A331CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F2B1C131EFE15AB00A331CA /* Assets.xcassets */; };
 		8F2B1C171EFE15AB00A331CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F2B1C151EFE15AB00A331CA /* LaunchScreen.storyboard */; };
 		8F2B1C1F1EFE167C00A331CA /* BLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B1C1E1EFE167C00A331CA /* BLEHelper.swift */; };
+		8F2BFF361F90AC67000B98DC /* SpatulaToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2BFF351F90AC67000B98DC /* SpatulaToolModel.swift */; };
+		8F2BFF381F90ACAA000B98DC /* MeasuringSpoonToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2BFF371F90ACAA000B98DC /* MeasuringSpoonToolModel.swift */; };
+		8F2BFF3A1F90ACE1000B98DC /* SmallCuttingBoardToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2BFF391F90ACE1000B98DC /* SmallCuttingBoardToolModel.swift */; };
+		8F2BFF3C1F90B872000B98DC /* MeatThermometerToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2BFF3B1F90B872000B98DC /* MeatThermometerToolModel.swift */; };
+		8F2BFF3E1F90BC67000B98DC /* WhiskToolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2BFF3D1F90BC67000B98DC /* WhiskToolModel.swift */; };
 		8F3059F11F04CA7300318B0C /* ToolsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3059F01F04CA7300318B0C /* ToolsModel.swift */; };
 		8F36D38E1F85FAA300BFDE4D /* TextToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F36D38D1F85FAA300BFDE4D /* TextToolBar.xib */; };
 		8F36D3901F85FB0400BFDE4D /* TextToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36D38F1F85FB0400BFDE4D /* TextToolBar.swift */; };
@@ -39,6 +44,11 @@
 		8F2B1C161EFE15AB00A331CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F2B1C181EFE15AB00A331CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F2B1C1E1EFE167C00A331CA /* BLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLEHelper.swift; sourceTree = "<group>"; };
+		8F2BFF351F90AC67000B98DC /* SpatulaToolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpatulaToolModel.swift; sourceTree = "<group>"; };
+		8F2BFF371F90ACAA000B98DC /* MeasuringSpoonToolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasuringSpoonToolModel.swift; sourceTree = "<group>"; };
+		8F2BFF391F90ACE1000B98DC /* SmallCuttingBoardToolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallCuttingBoardToolModel.swift; sourceTree = "<group>"; };
+		8F2BFF3B1F90B872000B98DC /* MeatThermometerToolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeatThermometerToolModel.swift; sourceTree = "<group>"; };
+		8F2BFF3D1F90BC67000B98DC /* WhiskToolModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiskToolModel.swift; sourceTree = "<group>"; };
 		8F3059F01F04CA7300318B0C /* ToolsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsModel.swift; sourceTree = "<group>"; };
 		8F36D38D1F85FAA300BFDE4D /* TextToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextToolBar.xib; sourceTree = "<group>"; };
 		8F36D38F1F85FB0400BFDE4D /* TextToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToolBar.swift; sourceTree = "<group>"; };
@@ -118,6 +128,11 @@
 			isa = PBXGroup;
 			children = (
 				8F3059F01F04CA7300318B0C /* ToolsModel.swift */,
+				8F2BFF391F90ACE1000B98DC /* SmallCuttingBoardToolModel.swift */,
+				8F2BFF351F90AC67000B98DC /* SpatulaToolModel.swift */,
+				8F2BFF3D1F90BC67000B98DC /* WhiskToolModel.swift */,
+				8F2BFF3B1F90B872000B98DC /* MeatThermometerToolModel.swift */,
+				8F2BFF371F90ACAA000B98DC /* MeasuringSpoonToolModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -219,13 +234,18 @@
 				8F201D791F00C8B00010F2B0 /* ServiceIds.swift in Sources */,
 				8F36D3901F85FB0400BFDE4D /* TextToolBar.swift in Sources */,
 				8F36D3921F8629D900BFDE4D /* DateHelpers.swift in Sources */,
+				8F2BFF361F90AC67000B98DC /* SpatulaToolModel.swift in Sources */,
 				8F2B1C1F1EFE167C00A331CA /* BLEHelper.swift in Sources */,
 				8F36D3951F86557A00BFDE4D /* Globals.swift in Sources */,
+				8F2BFF381F90ACAA000B98DC /* MeasuringSpoonToolModel.swift in Sources */,
+				8F2BFF3E1F90BC67000B98DC /* WhiskToolModel.swift in Sources */,
 				8F5AC40F1F84B45E0033E814 /* ToolCells.swift in Sources */,
 				8F22DC091F87936900C9948D /* CommonPickerView.swift in Sources */,
 				8F3059F11F04CA7300318B0C /* ToolsModel.swift in Sources */,
+				8F2BFF3C1F90B872000B98DC /* MeatThermometerToolModel.swift in Sources */,
 				8F2B1C0F1EFE15AB00A331CA /* ViewController.swift in Sources */,
 				8F5AC40D1F84B3200033E814 /* ToolsVC.swift in Sources */,
+				8F2BFF3A1F90ACE1000B98DC /* SmallCuttingBoardToolModel.swift in Sources */,
 				8F2B1C0D1EFE15AB00A331CA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

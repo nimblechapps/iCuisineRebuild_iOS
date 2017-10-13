@@ -9,9 +9,14 @@
 import Foundation
 import  UIKit
 
+
+
+
+
 class TextInputButton : UIButton, UIKeyInput, UITextInputTraits {
     
      var accessoryView : UIView?
+     var _inputView : UIView?
     
     
     override var inputAccessoryView: UIView?{
@@ -20,6 +25,15 @@ class TextInputButton : UIButton, UIKeyInput, UITextInputTraits {
         }
         set(newValue){
             accessoryView = newValue
+        }
+    }
+    
+    override var inputView: UIView?{
+        get {
+            return _inputView
+        }
+        set(newValue){
+            _inputView = newValue
         }
     }
     
@@ -45,9 +59,15 @@ class TextInputButton : UIButton, UIKeyInput, UITextInputTraits {
     
 }
 
+
+
+
 class SmallCuttingBoardCell : UITableViewCell{
     
-
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 
     
     @IBOutlet weak var containerView : UIView!{
@@ -61,6 +81,7 @@ class SmallCuttingBoardCell : UITableViewCell{
             topContainerView.roundedCorners()
         }
     }
+
     
     @IBOutlet weak var buttonsContainerView : UIView!
     
@@ -116,19 +137,12 @@ class SmallCuttingBoardCell : UITableViewCell{
     
     
     @IBAction func targetTapped(){
-        
-//        if SmallCuttingBoardTool.sharedInstance.toolTimerEndDate == nil{
-//            SmallCuttingBoardTool.sharedInstance.toolTimerEndDate = DateHelpers.getDateByAddingMinutes(minutes: 1.0)
-//        }
     }
     
     @IBOutlet weak var fullScreenView : UIView!
     @IBOutlet weak var labelToolName : UILabel!
     @IBOutlet weak var labelToolWeight : UILabel!
     @IBOutlet weak var labelToolTargetWeight : UILabel!
-    
-    
-    
     
 }
 
@@ -139,29 +153,41 @@ class SmallCuttingBoardCell : UITableViewCell{
 class SpatulaCell : UITableViewCell,UITextFieldDelegate{
     
     var toolBar : TextToolBar?
+    var showPicker : Bool = false
+    var pickerView : CommonPickerView?
+    
     
     override func awakeFromNib() {
-        
         super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(SpatulaCell.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
         
-        toolBar =    TextToolBar.instanceFromNib { (_tapped, _text, _toolBar) in
-            if _tapped == .Done{
-                print("Done")
-                print(_text ?? "nil val")
-            }
+        self.toolBar = TextToolBar.instanceFromNib(block: { (_tapped, _string, _toolBarInstance) in
             
-            if _tapped == .Cancel{
-                print("Cancel")
-                print(_text ?? "nil val")
-                
-            }
-            self.window?.endEditing(true)
-            self.window?.endEditing(true)
-        }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        
+            self.toolBar?.textField?.resignFirstResponder()
+            self.endEditing(true)
+            
+            print(_tapped)
+            print(_string ?? "nil")
+            
+        })
+        self.pickerView = CommonPickerView.instanceFromNib(block: { (_text, _commonPickerInstance) in
+            self.toolBar?.textField?.text = _text
+        })
+
     }
+    
+    func keyboardWillShow(){
+        if showPicker == true{
+        toolBar?.textField?.inputView = self.pickerView
+        }
+        else{
+            toolBar?.textField?.inputView = nil
+        }
+        toolBar?.textField?.text = ""
+        toolBar?.textField?.becomeFirstResponder()
+    }
+
     
     @IBOutlet weak var containerView : UIView!{
         didSet {
@@ -188,9 +214,9 @@ class SpatulaCell : UITableViewCell,UITextFieldDelegate{
         }
     }
     
-    @IBOutlet weak var buttonSteak    : UIButton!{
+    @IBOutlet weak var buttonPreSetTarget    : TextInputButton!{
         didSet{
-            buttonSteak.roundedCornersWithBorder()
+            buttonPreSetTarget.roundedCornersWithBorder()
         }
     }
     @IBOutlet weak var buttonExpandContract : UIButton!{
@@ -208,15 +234,6 @@ class SpatulaCell : UITableViewCell,UITextFieldDelegate{
             buttonSetTimer.roundedCornersWithBorder()
         }
     }
-    
-    func keyboardWillShow(){
-        
-      toolBar?.textField?.autocorrectionType  = .no
-      toolBar?.textField?.keyboardType = .numberPad
-      toolBar?.textField?.becomeFirstResponder()
-    }
-
-    
     
     @IBOutlet weak var labelTimer : UILabel!
     
@@ -237,8 +254,17 @@ class SpatulaCell : UITableViewCell,UITextFieldDelegate{
     }
     
     @IBAction func targetTapped(){
-        self.buttonSetTarget.accessoryView = self.toolBar
-        self.toolBar?.textField?.text = ""
+        
+      self.showPicker = false
+      self.buttonSetTarget.inputAccessoryView = self.toolBar
+      self.buttonSetTarget.becomeFirstResponder()
+        
+    }
+    
+    @IBAction func preSetTargetTapped(){
+        
+        self.showPicker = true
+        self.buttonSetTarget.inputAccessoryView = self.toolBar
         self.buttonSetTarget.becomeFirstResponder()
         
     }
@@ -248,7 +274,266 @@ class SpatulaCell : UITableViewCell,UITextFieldDelegate{
     @IBOutlet weak var labelToolTemperature : UILabel!
     @IBOutlet weak var labelToolTargetTemperature : UILabel!
     
+}
+
+
+
+
+class MeatThermometerCell : UITableViewCell,UITextFieldDelegate{
+    
+    var toolBar : TextToolBar?
+    var showPicker : Bool = false
+    var pickerView : CommonPickerView?
     
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(MeatThermometerCell.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        
+        self.toolBar = TextToolBar.instanceFromNib(block: { (_tapped, _string, _toolBarInstance) in
+            
+            self.toolBar?.textField?.resignFirstResponder()
+            self.endEditing(true)
+            
+            print(_tapped)
+            print(_string ?? "nil")
+            
+        })
+        self.pickerView = CommonPickerView.instanceFromNib(block: { (_text, _commonPickerInstance) in
+            self.toolBar?.textField?.text = _text
+        })
+        
+    }
+    
+    func keyboardWillShow(){
+        if showPicker == true{
+            toolBar?.textField?.inputView = self.pickerView
+        }
+        else{
+            toolBar?.textField?.inputView = nil
+        }
+        toolBar?.textField?.text = ""
+        toolBar?.textField?.becomeFirstResponder()
+    }
+    
+    
+    @IBOutlet weak var containerView : UIView!{
+        didSet {
+            containerView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var topContainerView : UIView!{
+        didSet {
+            topContainerView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var buttonsContainerView : UIView!
+    
+    @IBOutlet weak var imageContainerView   : UIView!{
+        didSet{
+            imageContainerView.roundedCorners()
+        }
+    }
+    @IBOutlet weak var toolImageView : UIImageView!{
+        didSet{
+            toolImageView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var buttonPreSetTarget    : TextInputButton!{
+        didSet{
+            buttonPreSetTarget.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonExpandContract : UIButton!{
+        didSet{
+            buttonExpandContract.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonSetTarget      : TextInputButton!{
+        didSet{
+            buttonSetTarget.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonSetTimer        : UIButton!{
+        didSet{
+            buttonSetTimer.roundedCornersWithBorder()
+        }
+    }
+    
+    @IBOutlet weak var labelTimer : UILabel!
+    
+    @IBAction func fullScreenTapped(){
+        
+        if MeatThermometerTool.sharedInstance.toolIsExpanded == true{
+            MeatThermometerTool.sharedInstance.toolIsExpanded = false
+        }
+        else{
+            MeatThermometerTool.sharedInstance.toolIsExpanded = true
+        }
+    }
+    
+    @IBAction func timerTapped(){
+        if MeatThermometerTool.sharedInstance.toolTimerEndDate == nil{
+            MeatThermometerTool.sharedInstance.toolTimerEndDate = DateHelpers.getDateByAddingMinutes(minutes: 1.0)
+        }
+    }
+    
+    @IBAction func targetTapped(){
+        
+        self.showPicker = false
+        self.buttonSetTarget.inputAccessoryView = self.toolBar
+        self.buttonSetTarget.becomeFirstResponder()
+        
+    }
+    
+    @IBAction func buttonPreSetTargetTapped(){
+        
+        self.showPicker = true
+        self.buttonSetTarget.inputAccessoryView = self.toolBar
+        self.buttonSetTarget.becomeFirstResponder()
+        
+    }
+    
+    @IBOutlet weak var fullScreenView : UIView!
+    @IBOutlet weak var labelToolName : UILabel!
+    @IBOutlet weak var labelToolTemperature : UILabel!
+    @IBOutlet weak var labelToolTargetTemperature : UILabel!
     
 }
+
+
+
+class WhiskCell : UITableViewCell,UITextFieldDelegate{
+    
+    var toolBar : TextToolBar?
+    var showPicker : Bool = false
+    var pickerView : CommonPickerView?
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NotificationCenter.default.addObserver(self, selector: #selector(WhiskCell.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        
+        self.toolBar = TextToolBar.instanceFromNib(block: { (_tapped, _string, _toolBarInstance) in
+            
+            self.toolBar?.textField?.resignFirstResponder()
+            self.endEditing(true)
+            
+            print(_tapped)
+            print(_string ?? "nil")
+            
+        })
+        self.pickerView = CommonPickerView.instanceFromNib(block: { (_text, _commonPickerInstance) in
+            self.toolBar?.textField?.text = _text
+        })
+        
+    }
+    
+    func keyboardWillShow(){
+        if showPicker == true{
+            toolBar?.textField?.inputView = self.pickerView
+        }
+        else{
+            toolBar?.textField?.inputView = nil
+        }
+        toolBar?.textField?.text = ""
+        toolBar?.textField?.becomeFirstResponder()
+    }
+    
+    
+    @IBOutlet weak var containerView : UIView!{
+        didSet {
+            containerView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var topContainerView : UIView!{
+        didSet {
+            topContainerView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var buttonsContainerView : UIView!
+    
+    @IBOutlet weak var imageContainerView   : UIView!{
+        didSet{
+            imageContainerView.roundedCorners()
+        }
+    }
+    @IBOutlet weak var toolImageView : UIImageView!{
+        didSet{
+            toolImageView.roundedCorners()
+        }
+    }
+    
+    @IBOutlet weak var buttonPreSetTarget    : TextInputButton!{
+        didSet{
+            buttonPreSetTarget.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonExpandContract : UIButton!{
+        didSet{
+            buttonExpandContract.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonSetTarget      : TextInputButton!{
+        didSet{
+            buttonSetTarget.roundedCornersWithBorder()
+        }
+    }
+    @IBOutlet weak var buttonSetTimer        : UIButton!{
+        didSet{
+            buttonSetTimer.roundedCornersWithBorder()
+        }
+    }
+    
+    @IBOutlet weak var labelTimer : UILabel!
+    
+    @IBAction func fullScreenTapped(){
+        
+        if WhiskTool.sharedInstance.toolIsExpanded == true{
+            WhiskTool.sharedInstance.toolIsExpanded = false
+        }
+        else{
+            WhiskTool.sharedInstance.toolIsExpanded = true
+        }
+    }
+    
+    @IBAction func timerTapped(){
+        if WhiskTool.sharedInstance.toolTimerEndDate == nil{
+            WhiskTool.sharedInstance.toolTimerEndDate = DateHelpers.getDateByAddingMinutes(minutes: 1.0)
+        }
+    }
+    
+    @IBAction func targetTapped(){
+        
+        self.showPicker = false
+        self.buttonSetTarget.inputAccessoryView = self.toolBar
+        self.buttonSetTarget.becomeFirstResponder()
+        
+    }
+    
+    @IBAction func buttonPreSetTargetTapped(){
+        
+        self.showPicker = true
+        self.buttonSetTarget.inputAccessoryView = self.toolBar
+        self.buttonSetTarget.becomeFirstResponder()
+        
+    }
+    
+    @IBOutlet weak var fullScreenView : UIView!
+    @IBOutlet weak var labelToolName : UILabel!
+    @IBOutlet weak var labelToolTemperature : UILabel!
+    @IBOutlet weak var labelToolTargetTemperature : UILabel!
+    
+}
+
+
+
+
+

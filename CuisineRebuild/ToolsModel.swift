@@ -29,7 +29,11 @@ class ToolHelpers {
             case is MeasuringSpoonTool:
                 MeasuringSpoonTool.connectMeasuringSpoonTool(peripheralUUID: peripheralUUID)
                 
+            case is MeatThermometerTool:
+                MeatThermometerTool.connectMeatThermometerTool(peripheralUUID: peripheralUUID)
                 
+            case is WhiskTool:
+                WhiskTool.connectWhiskTool(peripheralUUID: peripheralUUID)
                 
             default:
                 break
@@ -51,6 +55,12 @@ class ToolHelpers {
                 
             case is MeasuringSpoonTool:
                 MeasuringSpoonTool.disConnectMeasuringSpoonTool(peripheralUUID: peripheralUUID)
+                
+            case is MeatThermometerTool:
+                MeatThermometerTool.disConnectMeatThermometerTool(peripheralUUID: peripheralUUID)
+                
+            case is WhiskTool:
+                WhiskTool.disConnectWhiskTool(peripheralUUID: peripheralUUID)
                 
                 
                 
@@ -77,6 +87,12 @@ class ToolHelpers {
         case MeasuringSpoon_Id:
             return MeasuringSpoonTool.sharedInstance
             
+        case MeatThermometer_Id:
+            return MeatThermometerTool.sharedInstance
+            
+        case Whisk_Id:
+            return WhiskTool.sharedInstance
+            
         default :
             return nil
         }
@@ -94,8 +110,11 @@ class ToolHelpers {
         else if peripheralUUID == SpatulaTool.sharedInstance.toolPeripheralUUID{
             return SpatulaTool.sharedInstance
         }
-        else if peripheralUUID == MeasuringSpoonTool.sharedInstance.toolPeripheralUUID{
-            return MeasuringSpoonTool.sharedInstance
+        else if peripheralUUID == MeatThermometerTool.sharedInstance.toolPeripheralUUID{
+            return MeatThermometerTool.sharedInstance
+        }
+        else if peripheralUUID == WhiskTool.sharedInstance.toolPeripheralUUID{
+            return WhiskTool.sharedInstance
         }
         else{
             return nil
@@ -120,270 +139,12 @@ class ToolHelpers {
             swap(&ToolsArray[index!], &ToolsArray[ToolsArray.count-1])
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
-class SpatulaTool {
-    
-    static let sharedInstance = SpatulaTool()
-    
-    var toolPeripheralUUID              : String = ""
-    var toolName                        : String = Spatula
-    var toolBatteryLevel                : String = ""
-    var toolIsConnected                 : Bool = false
-    var toolCurrentTemperature          : Double = 0
-    var toolTargetTemperature           : Double = 0
-    var toolCurrentTemperatureString    : String = "--"
-    var toolTargetTemperatureString     : String = "--"
-    var toolIsExpanded                  : Bool = false
-    var toolTimerEndDate                : Date?
-    
-    
-    class func connectSpatulaTool(peripheralUUID : String){
-        
-        if  SpatulaTool.sharedInstance.toolIsConnected == false{
-            
-            ToolHelpers.rearrangeConnectedTool(connectedTool: _kSpatula)
-            
-            SpatulaTool.sharedInstance.toolPeripheralUUID = peripheralUUID
-            SpatulaTool.sharedInstance.toolIsConnected = true
-            SpatulaTool.sharedInstance.toolTimerEndDate = nil
-            SpatulaTool.sharedInstance.toolIsExpanded = false
-        }
-    }
-    
-    class func disConnectSpatulaTool(peripheralUUID : String){
-        
-        ToolHelpers.rearrangeDisconnectedTool(disConnectedTool: _kSpatula)
-        
-        
-        SpatulaTool.sharedInstance.toolPeripheralUUID = ""
-        SpatulaTool.sharedInstance.toolIsConnected = false
-        SpatulaTool.sharedInstance.toolCurrentTemperature = 0
-        SpatulaTool.sharedInstance.toolTargetTemperature = 0
-        SpatulaTool.sharedInstance.toolCurrentTemperatureString = "--"
-        SpatulaTool.sharedInstance.toolTargetTemperatureString =  "--"
-        SpatulaTool.sharedInstance.toolTimerEndDate = nil
-        SpatulaTool.sharedInstance.toolIsExpanded = false
-    }
-    
-    class func updateTemperatureForSpatulaTool(temperature : Double, temperatureString : String){
-        
-        SpatulaTool.sharedInstance.toolCurrentTemperature = temperature
-        SpatulaTool.sharedInstance.toolCurrentTemperatureString = temperatureString + "°c"
-        
-    }
-    
-    
-}
 
-class SmallCuttingBoardTool {
-    
-    static let sharedInstance = SmallCuttingBoardTool()
-    
-    var toolPeripheralUUID      : String  = ""
-    var toolName                : String  = SmallCuttingBoard
-    var toolBatteryLevel        : String  = ""
-    var toolIsConnected         : Bool    = false
-    var toolCurrentWeight       : Double  = 0
-    var toolTargetWeight        : Double  = 0
-    var toolPreviousWeight      : Double  = 0
-    var toolCurrentWeightString : String  = "--"
-    var toolTargetWeightString  : String  = "--"
-    var toolIsExpanded          : Bool    = false
-    var toolTareWeight          : Double  = 0
-    var toolLoadingCounter      : Int     = _kLoadCellLoadTime
-    var toolIsLoading           : Bool    = true
-    
-    class func connectSmallCuttingBoardTool(peripheralUUID : String){
-        
-        if  SmallCuttingBoardTool.sharedInstance.toolIsConnected == false{
-            
-            ToolHelpers.rearrangeConnectedTool(connectedTool: _kSmallCuttingBoard)
-            
-            SmallCuttingBoardTool.sharedInstance.toolPeripheralUUID = peripheralUUID
-            SmallCuttingBoardTool.sharedInstance.toolIsConnected = true
-            SmallCuttingBoardTool.sharedInstance.toolLoadingCounter = _kLoadCellLoadTime
-            SmallCuttingBoardTool.sharedInstance.toolIsLoading = true
-        }
-        
-        
-    }
-    
-    class func disConnectSmallCuttingBoardTool(peripheralUUID : String){
-        
-        ToolHelpers.rearrangeDisconnectedTool(disConnectedTool: _kSmallCuttingBoard)
-        
-        SmallCuttingBoardTool.sharedInstance.toolPeripheralUUID = ""
-        SmallCuttingBoardTool.sharedInstance.toolIsConnected = false
-        SmallCuttingBoardTool.sharedInstance.toolLoadingCounter = _kLoadCellLoadTime
-        SmallCuttingBoardTool.sharedInstance.toolIsLoading = true
-        SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = 0
-        SmallCuttingBoardTool.sharedInstance.toolTargetWeight = 0
-        SmallCuttingBoardTool.sharedInstance.toolPreviousWeight = 0
-        SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "--"
-        SmallCuttingBoardTool.sharedInstance.toolTargetWeightString =  "--"
-        SmallCuttingBoardTool.sharedInstance.toolTareWeight = 0
-        SmallCuttingBoardTool.sharedInstance.toolIsExpanded = false
-    }
-    
-    class func updateWeightForSmallCuttingBoardTool(weight : Double, weightString : String){
-        
-        
-        if SmallCuttingBoardTool.sharedInstance.toolLoadingCounter != 0{
-            SmallCuttingBoardTool.sharedInstance.toolLoadingCounter = SmallCuttingBoardTool.sharedInstance.toolLoadingCounter - 1
-            SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "loading"
-        }
-        else if SmallCuttingBoardTool.sharedInstance.toolLoadingCounter == 0 && SmallCuttingBoardTool.sharedInstance.toolIsLoading == true{
-            SmallCuttingBoardTool.sharedInstance.toolIsLoading = false
-            SmallCuttingBoardTool.sharedInstance.toolTareWeight = weight
-            
-            
-            let actualWeight = weight - SmallCuttingBoardTool.sharedInstance.toolTareWeight
-            SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = actualWeight
-            SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-            SmallCuttingBoardTool.sharedInstance.toolPreviousWeight = actualWeight
-            
-        }
-        else{
-            
-            if abs(SmallCuttingBoardTool.sharedInstance.toolPreviousWeight - weight) > 3{
-                
-                let actualWeight = weight - SmallCuttingBoardTool.sharedInstance.toolTareWeight
-                
-                if abs(actualWeight) <= 4{
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = 0.0
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "\(0) g"
-                }else{
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = actualWeight
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-                }
-                
-                SmallCuttingBoardTool.sharedInstance.toolPreviousWeight = weight
-                
-                
-            }else{
-                let actualWeight = SmallCuttingBoardTool.sharedInstance.toolPreviousWeight - SmallCuttingBoardTool.sharedInstance.toolTareWeight
-                
-                if abs(actualWeight) <= 4{
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = 0.0
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "\(0) g"
-                }else{
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeight = actualWeight
-                    SmallCuttingBoardTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-                }
-            }
-        }
-        
-    }
-    
-}
-class MeasuringSpoonTool {
-    
-    static let sharedInstance = MeasuringSpoonTool()
-    
-    var toolPeripheralUUID      : String  = ""
-    var toolName                : String  = MeasuringSpoon
-    var toolBatteryLevel        : String  = ""
-    var toolIsConnected         : Bool    = false
-    var toolCurrentWeight       : Double  = 0
-    var toolTargetWeight        : Double  = 0
-    var toolPreviousWeight      : Double  = 0
-    var toolCurrentWeightString : String  = "--"
-    var toolTargetWeightString  : String  = "--"
-    var toolIsExpanded          : Bool    = false
-    var toolTareWeight          : Double  = 0
-    var toolLoadingCounter      : Int     = _kLoadCellLoadTime
-    var toolIsLoading           : Bool    = true
-    
-    
-    
-    
-    class func connectMeasuringSpoonTool(peripheralUUID : String){
-        
-        if  MeasuringSpoonTool.sharedInstance.toolIsConnected == false{
-            
-            MeasuringSpoonTool.sharedInstance.toolPeripheralUUID = peripheralUUID
-            MeasuringSpoonTool.sharedInstance.toolIsConnected = true
-            MeasuringSpoonTool.sharedInstance.toolLoadingCounter = _kLoadCellLoadTime
-            MeasuringSpoonTool.sharedInstance.toolIsLoading = true
-        }
-    }
-    
-    class func disConnectMeasuringSpoonTool(peripheralUUID : String){
-        
-        MeasuringSpoonTool.sharedInstance.toolPeripheralUUID = ""
-        MeasuringSpoonTool.sharedInstance.toolIsConnected = false
-        MeasuringSpoonTool.sharedInstance.toolLoadingCounter = _kLoadCellLoadTime
-        MeasuringSpoonTool.sharedInstance.toolIsLoading = true
-        MeasuringSpoonTool.sharedInstance.toolCurrentWeight = 0
-        MeasuringSpoonTool.sharedInstance.toolTargetWeight = 0
-        MeasuringSpoonTool.sharedInstance.toolPreviousWeight = 0
-        MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "--"
-        MeasuringSpoonTool.sharedInstance.toolTargetWeightString =  "--"
-        MeasuringSpoonTool.sharedInstance.toolTareWeight = 0
-        MeasuringSpoonTool.sharedInstance.toolIsExpanded = false
-        
-        
-    }
-    
-    
-    
-    class func updateWeightForMeasuringSpoonTool(weight : Double, weightString : String){
-        
-        
-        if MeasuringSpoonTool.sharedInstance.toolLoadingCounter != 0{
-            MeasuringSpoonTool.sharedInstance.toolLoadingCounter = MeasuringSpoonTool.sharedInstance.toolLoadingCounter - 1
-            MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "loading"
-        }
-        else if MeasuringSpoonTool.sharedInstance.toolLoadingCounter == 0 && MeasuringSpoonTool.sharedInstance.toolIsLoading == true{
-            MeasuringSpoonTool.sharedInstance.toolIsLoading = false
-            MeasuringSpoonTool.sharedInstance.toolTareWeight = weight
-            
-            let actualWeight = weight - MeasuringSpoonTool.sharedInstance.toolTareWeight
-            MeasuringSpoonTool.sharedInstance.toolCurrentWeight = actualWeight
-            MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-            MeasuringSpoonTool.sharedInstance.toolPreviousWeight = actualWeight
-            
-        }
-        else{
-            
-            if abs(MeasuringSpoonTool.sharedInstance.toolPreviousWeight - weight) > 3{
-                
-                let actualWeight = weight - MeasuringSpoonTool.sharedInstance.toolTareWeight
-                
-                if abs(actualWeight) <= 4{
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeight = 0.0
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "\(0) g"
-                }else{
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeight = actualWeight
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-                }
-                
-                MeasuringSpoonTool.sharedInstance.toolPreviousWeight = weight
-                
-                
-            }else{
-                let actualWeight = MeasuringSpoonTool.sharedInstance.toolPreviousWeight - MeasuringSpoonTool.sharedInstance.toolTareWeight
-                
-                if abs(actualWeight) <= 4{
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeight = 0.0
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "\(0) g"
-                }else{
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeight = actualWeight
-                    MeasuringSpoonTool.sharedInstance.toolCurrentWeightString = "\(Int(actualWeight)) g"
-                }
-            }
-        }
-        
-    }
-    
-}
+
+
+
 
 
 

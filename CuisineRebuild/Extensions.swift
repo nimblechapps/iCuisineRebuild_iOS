@@ -11,8 +11,6 @@ import  UIKit
 
 // Mark : UIView Extensions
 
-
-
 extension UIView {
     func roundedCorners(){
          self.layer.cornerRadius = 5
@@ -133,7 +131,6 @@ extension Double {
             
             let minutes = Int(truncatingRemainder(dividingBy: 3600) / 60)
             let seconds = Int((self.truncatingRemainder(dividingBy:3600)).truncatingRemainder(dividingBy:60))
-
             
             formattedTime = (minutes < 10 ? "0" + String(minutes) : String(minutes)) + ":" + (seconds < 10 ? "0" + String(seconds) : String(seconds))
         }

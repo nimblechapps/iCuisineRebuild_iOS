@@ -27,14 +27,7 @@ class DateHelpers {
         }
         return (secondsRemaining.formattedTime, false)
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
 
 
